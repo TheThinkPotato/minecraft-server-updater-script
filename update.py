@@ -63,6 +63,14 @@ def extract_zip(zip_path):
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         print("> Extracting files...")
         zip_ref.extractall(TEMP_FOLDER)
+    
+    # Delete the file from the removing list from the temporary directory
+    for file in REMOVE_FILES:
+        file_path = os.path.join(TEMP_FOLDER, file)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            print(f"Removed {file_path}")
+
 
 # Copy files from temporary directory to server directory overwriting existing files
 def copy_files():
